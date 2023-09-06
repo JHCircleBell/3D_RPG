@@ -2461,8 +2461,7 @@ GameObject:
   - component: {fileID: 5923389811563876444}
   - component: {fileID: 5978182169476117920}
   - component: {fileID: 3273366522127232217}
-  - component: {fileID: 1230126219}
-  - component: {fileID: 1230126220}
+  - component: {fileID: 1663930116}
   m_Layer: 0
   m_Name: MainPlayer
   m_TagString: Untagged
@@ -2501,10 +2500,10 @@ Animator:
   m_GameObject: {fileID: 6009337372951849604}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7e30eee73c241d5448ce0ac372cf6602, type: 3}
-  m_Controller: {fileID: 9100000, guid: d7c55390ab0320c47b84f63184ecb1b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4fa53ae3d854318498e5f62633fae773, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2566,25 +2565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0086017f9f75834fa70c1b513c81a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
---- !u!54 &1230126219
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6009337372951849604}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &1230126220
-BoxCollider:
+  moveSpeed: 3
+--- !u!143 &1663930116
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2594,8 +2577,13 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.56, y: 2.3, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Height: 1.9
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!1 &6009345987896110598
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,13 +18,13 @@ public class CharController : MonoBehaviour
     private static int Die = Animator.StringToHash("Die");
     private static int Attack = Animator.StringToHash("Attack"); // 우선 일반공격
 
-    private Rigidbody rb;
+    private bool isRunning = false;
 
     private void Awake()
     {
-        mainCamera = Camera.main;
-
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+        
 
         if (!TryGetComponent<CharacterController>(out characterController))
         {
@@ -54,12 +54,10 @@ public class CharController : MonoBehaviour
         //transform.position += (moveSpeed * Time.deltaTime * move);
         //transform.LookAt(transform.position + move);
 
-
-
         // 02. 마우스로 캐릭터 이동
         if (Input.GetMouseButtonDown(1))
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit))
             {
                 targetPos = raycastHit.point;
@@ -67,21 +65,47 @@ public class CharController : MonoBehaviour
                 
             }
         }
+
+
+
         if(Vector3.Distance(transform.position, targetPos) > 0.1f)
         {
             Move();
+            anim.SetBool("Walk", true);
+
+            // 
+        }
+        else if (Vector3.Distance(transform.position, targetPos) <= 0.1f)
+        {
+            anim.SetBool("Walk", false);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            anim.SetBool("Run", true);
+
+            // 애니메이션이 종료되면 상태값을 변경시켜주는데 적용이 안되는 문제가 있음
+            //if (false == anim.IsInTransition(0))
+            //{
+            //    anim.SetBool("Run", false);
+            //    //anim.SetBool("Walk", true);
+            //}
         }
 
         
 
-        if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
+        
+        // 03. Q를 누를 때 Attack 애니메이션 실행
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            //anim.SetTrigger(Attack);
-            
-            StartCoroutine("DashAttack");
-            
-            
+            anim.SetTrigger(Attack);
+
+            //StartCoroutine(DashAttack());
         }
+        
+        
+        
 
         //if (Input.GetKeyDown(KeyCode.LeftShift)) // todo.. Run에대한 Animation 다시 찾아오기
         //{
@@ -90,45 +114,55 @@ public class CharController : MonoBehaviour
 
     }
 
-    private bool isDashing = false;    
-    [SerializeField] private float dashDistance;
-    [SerializeField] private float dashSpeed;
-    private IEnumerator DashAttack()
-    {
-
-        isDashing = true;
-
-        anim.SetTrigger("Attack");
-        
-
-        Vector3 dashStartPosition = transform.position; // 현위치
-        Vector3 dashEndPosition = transform.position + transform.forward * dashDistance; // 현위치 + 앞으로 이동거리 + 대쉬 거리
 
 
-        float startTime = Time.time; // 시작시간이 현재 시간
-        float journeyLength = Vector3.Distance(dashStartPosition, dashEndPosition); // 시작위치랑 엔드포지션의 우치의 차이
 
-        while (Time.time < startTime + journeyLength / dashSpeed) 
-        {
-            float distanceCovered = (Time.time - startTime) * dashSpeed * Time.deltaTime;
-            float fractionOfJourney = distanceCovered / journeyLength;
-            characterController.Move(Vector3.Lerp(dashStartPosition, dashEndPosition, fractionOfJourney));
-            
-            yield return null;
-        }
+    #region 대쉬공격 구현
+    //private bool isDashing = false;    
+    //[SerializeField] private float dashDistance = 5f;
+    //[SerializeField] private float dashSpeed = 10f;
 
-        Debug.Log(dashStartPosition + "  " + dashEndPosition);
+    //private IEnumerator DashAttack()
+    //{
 
-        isDashing = false;
-    }
+    //    isDashing = true;
+
+    //    anim.SetTrigger("Attack");
 
 
+    //    Vector3 dashStartPosition = transform.position; // 현위치
+    //    Vector3 dashEndPosition = transform.position + transform.forward * dashDistance; // 현위치 + 앞으로 이동거리 + 대쉬 거리
+
+
+    //    float startTime = Time.time; // 시작시간이 현재 시간
+    //    float journeyLength = Vector3.Distance(dashEndPosition,dashStartPosition); // 시작위치랑 엔드포지션의 위치의 차이
+
+    //    while (Time.time < startTime + journeyLength / dashSpeed) // 현재시간 < 시작시간 + 이동거리/대쉬속도
+    //    {
+    //        float distanceCovered = (Time.time - startTime) * dashSpeed;
+    //        float fractionOfJourney = distanceCovered / journeyLength;
+    //        characterController.Move(Vector3.Lerp(dashStartPosition, dashEndPosition, fractionOfJourney));
+
+    //        yield return null;
+    //    }
+
+    //    Debug.Log(dashStartPosition + "  " + dashEndPosition);
+
+    //    isDashing = false;
+    //}
+
+    #endregion
 
     private void Move() // 이동 관련 함수
     {
         Vector3 thisUpdatePoint = (targetPos - transform.position).normalized * moveSpeed;
         characterController.SimpleMove(thisUpdatePoint);
+
+        //anim.SetBool("Walk", true);
     }
 
+    
+
     // 참고 코드 : https://stickode.tistory.com/309
+    // https://stickode.tistory.com/360
 }
