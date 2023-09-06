@@ -6,29 +6,27 @@ public class CharController : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 5f;
-    private Vector3 move;
-    private Vector3 dir;
+    private Vector3 dir; // 이동 방향
+    private Vector3 targetPos; // 목표 위치
 
     private CharacterController characterController; // 캐릭터 컨트롤러
     private Camera mainCamera;
 
     private Animator anim;
-    private static int animParam_Move = Animator.StringToHash("Player_Move");
-    private static int animParam_Run = Animator.StringToHash("Player_Run");
-    private static int animParam_Die = Animator.StringToHash("Player_Die");
-    private static int animParam_Attack01 = Animator.StringToHash("Player_SwordAttack01"); // 우선 일반공격
+    private static int Walk = Animator.StringToHash("Walk");
+    private static int Run = Animator.StringToHash("Run");
+    private static int Die = Animator.StringToHash("Die");
+    private static int Attack = Animator.StringToHash("Attack"); // 우선 일반공격
 
-
+    private Rigidbody rb;
 
     private void Awake()
     {
         mainCamera = Camera.main;
-        //if (!TryGetComponent<Camera>(out mainCamera))
-        //{
-        //    Debug.Log("CharController.cs - Awake() - mainCamera 참조 실패");
-        //}
-        
-        if(!TryGetComponent<CharacterController>(out characterController))
+
+        rb = GetComponent<Rigidbody>();
+
+        if (!TryGetComponent<CharacterController>(out characterController))
         {
             Debug.Log("CharController.cs - Awake() - characterController 참조 실패");
         }
@@ -62,24 +60,27 @@ public class CharController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, 100f))
+            if (Physics.Raycast(ray, out RaycastHit raycastHit))
             {
-                move = raycastHit.point;
-
-                Debug.Log("이동 위치 : " + move.ToString());
+                targetPos = raycastHit.point;
+                gameObject.transform.LookAt(targetPos);
+                
             }
         }
-
-        //if (Vector3.Distance(transform.position, move) > 0.1f)
-        //{
-        //    Move();
-        //}
-
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        if(Vector3.Distance(transform.position, targetPos) > 0.1f)
         {
-            anim.SetTrigger(animParam_Attack01);
+            Move();
+        }
+
+        
+
+        if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
+        {
+            //anim.SetTrigger(Attack);
+            
+            StartCoroutine("DashAttack");
+            
+            
         }
 
         //if (Input.GetKeyDown(KeyCode.LeftShift)) // todo.. Run에대한 Animation 다시 찾아오기
@@ -88,13 +89,45 @@ public class CharController : MonoBehaviour
         //}
 
     }
-    private void Move()
+
+    private bool isDashing = false;    
+    [SerializeField] private float dashDistance;
+    [SerializeField] private float dashSpeed;
+    private IEnumerator DashAttack()
     {
+
+        isDashing = true;
+
+        anim.SetTrigger("Attack");
         
-        transform.position = (move - transform.position).normalized * moveSpeed;
-        
+
+        Vector3 dashStartPosition = transform.position; // 현위치
+        Vector3 dashEndPosition = transform.position + transform.forward * dashDistance; // 현위치 + 앞으로 이동거리 + 대쉬 거리
+
+
+        float startTime = Time.time; // 시작시간이 현재 시간
+        float journeyLength = Vector3.Distance(dashStartPosition, dashEndPosition); // 시작위치랑 엔드포지션의 우치의 차이
+
+        while (Time.time < startTime + journeyLength / dashSpeed) 
+        {
+            float distanceCovered = (Time.time - startTime) * dashSpeed * Time.deltaTime;
+            float fractionOfJourney = distanceCovered / journeyLength;
+            characterController.Move(Vector3.Lerp(dashStartPosition, dashEndPosition, fractionOfJourney));
             
-        characterController.SimpleMove(transform.position);
+            yield return null;
+        }
+
+        Debug.Log(dashStartPosition + "  " + dashEndPosition);
+
+        isDashing = false;
+    }
+
+
+
+    private void Move() // 이동 관련 함수
+    {
+        Vector3 thisUpdatePoint = (targetPos - transform.position).normalized * moveSpeed;
+        characterController.SimpleMove(thisUpdatePoint);
     }
 
     // 참고 코드 : https://stickode.tistory.com/309
