@@ -41,6 +41,7 @@ public class CharController : MonoBehaviour
         {
             Debug.Log("CharController.cs - Awake() - anim 참조 실패");
         }
+        
     }
 
 
@@ -101,7 +102,7 @@ public class CharController : MonoBehaviour
         {
             anim.SetTrigger(Attack);
 
-            //StartCoroutine(DashAttack());
+            StartCoroutine(DashAttack());
         }
         
         
@@ -118,38 +119,40 @@ public class CharController : MonoBehaviour
 
 
     #region 대쉬공격 구현
-    //private bool isDashing = false;    
-    //[SerializeField] private float dashDistance = 5f;
-    //[SerializeField] private float dashSpeed = 10f;
+    private bool isDashing = false;
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashSpeed = 10f;
 
-    //private IEnumerator DashAttack()
-    //{
+    
 
-    //    isDashing = true;
+    private IEnumerator DashAttack()
+    {
 
-    //    anim.SetTrigger("Attack");
+        isDashing = true;
 
-
-    //    Vector3 dashStartPosition = transform.position; // 현위치
-    //    Vector3 dashEndPosition = transform.position + transform.forward * dashDistance; // 현위치 + 앞으로 이동거리 + 대쉬 거리
+        anim.SetTrigger("Attack");
 
 
-    //    float startTime = Time.time; // 시작시간이 현재 시간
-    //    float journeyLength = Vector3.Distance(dashEndPosition,dashStartPosition); // 시작위치랑 엔드포지션의 위치의 차이
+        Vector3 dashStartPosition = transform.position; // 현위치
+        Vector3 dashEndPosition = transform.position + new Vector3(0f, 0f, 0f) * dashDistance; // 현위치 + 앞으로 이동거리 + 대쉬 거리
 
-    //    while (Time.time < startTime + journeyLength / dashSpeed) // 현재시간 < 시작시간 + 이동거리/대쉬속도
-    //    {
-    //        float distanceCovered = (Time.time - startTime) * dashSpeed;
-    //        float fractionOfJourney = distanceCovered / journeyLength;
-    //        characterController.Move(Vector3.Lerp(dashStartPosition, dashEndPosition, fractionOfJourney));
 
-    //        yield return null;
-    //    }
+        float startTime = Time.time; // 시작시간이 현재 시간
+        float journeyLength = Vector3.Distance(dashEndPosition, dashStartPosition); // 시작위치랑 엔드포지션의 위치의 차이
 
-    //    Debug.Log(dashStartPosition + "  " + dashEndPosition);
+        while (Time.time < startTime + journeyLength / dashSpeed) // 현재시간 < 시작시간 + 이동거리/대쉬속도
+        {
+            float distanceCovered = (Time.time - startTime) * dashSpeed;
+            float fractionOfJourney = distanceCovered / journeyLength;
+            characterController.Move(Vector3.Lerp(dashStartPosition, dashEndPosition, fractionOfJourney));
 
-    //    isDashing = false;
-    //}
+            yield return null;
+        }
+
+        Debug.Log(dashStartPosition + "  " + dashEndPosition);
+
+        isDashing = false;
+    }
 
     #endregion
 
