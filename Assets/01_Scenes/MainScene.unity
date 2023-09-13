@@ -1973,7 +1973,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3801f0690e729ee4ca9140cfbd580d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 1.75
+  interactionTransform: {fileID: 480186949}
 --- !u!135 &480186946
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4357,7 +4358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3801f0690e729ee4ca9140cfbd580d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 1.75
+  interactionTransform: {fileID: 1036852749}
 --- !u!135 &1036852745
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4371,6 +4373,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.1983311
   m_Center: {x: -0.022504508, y: 0.12031922, z: -0.19482045}
+--- !u!4 &1036852749 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4000010140368820, guid: c3c0707254334a64ca8198f7486e977d, type: 3}
+  m_PrefabInstance: {fileID: 1036852738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056989753 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 9d123ff5b15c0bd4fbd33779e2acdbd9, type: 3}

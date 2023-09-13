@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1)) // 우클릭 이동
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0)) // 좌클릭 상호작용
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -55,12 +55,27 @@ public class PlayerController : MonoBehaviour
 
     private void SetFocus(Interactable newFocus)
     {
-        focus = newFocus;
-        motor.FollowTarget(newFocus);
+        if(newFocus != focus)
+        {
+            if(focus != null)
+            {
+                focus.OnDeFocused();
+            }
+            
+            focus = newFocus;
+            motor.FollowTarget(newFocus);
+        }
+
+        newFocus.OnFocused(transform);
     }
 
     private void RemoveFocus()
     {
+        if(focus != null)
+        {
+            focus.OnDeFocused();
+        }
+        
         focus = null;
         motor.StopFollowTarget();
     }
