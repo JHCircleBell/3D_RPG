@@ -29,6 +29,7 @@ public class Interactable : MonoBehaviour
             }
         }
     }
+    // >> ontrigger ¼öÁ¤
 
     public virtual void Interact()
     {
