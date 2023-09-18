@@ -7,4 +7,14 @@ public class Item : ScriptableObject
     public Sprite icon = null;
     public bool isDefaultItem = false;
 
+    public virtual void Use()
+    {
+        Debug.Log("사용중인 아이템 :" + name);
+    }
+
+    public void RemoveFromInventory()
+    {
+        Inventory.instance.Remove(this);
+    }
 }
+

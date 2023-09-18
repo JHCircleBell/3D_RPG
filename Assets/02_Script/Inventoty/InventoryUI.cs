@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    
+
     Inventory inventory;
 
     [SerializeField] private Transform itemParent;
+    [SerializeField] private GameObject inventoryUI;
 
     InventorySlot[] slots;
 
@@ -22,7 +25,10 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Inventory"))
+        {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        }
     }
 
     private void UpdateUI()
