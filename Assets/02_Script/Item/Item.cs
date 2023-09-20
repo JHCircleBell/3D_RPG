@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+
+    // 어드레서블 에셋/스크립터블 오브젝트 공부하기
+
+
     new public string itemName = "New Item";
     public Sprite icon = null;
     public bool isDefaultItem = false;
