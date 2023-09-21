@@ -30,7 +30,7 @@ public class CharaterStats : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHP -= damage;
-        Debug.Log("캐릭터가 " + damage + "만큼의 데미지를 입었습니다.");
+        Debug.Log(gameObject.name + "가 " + damage + "만큼의 데미지를 입었습니다.");
 
         if(currentHP <= 0)
         {
@@ -40,6 +40,8 @@ public class CharaterStats : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("캐릭터 사망");
+        Debug.Log(gameObject.name + "사망");
+
+        // todo.. 사망 애니메이션 처리 해야됨
     }
 }

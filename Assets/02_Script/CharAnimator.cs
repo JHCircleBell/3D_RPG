@@ -27,6 +27,8 @@ public class CharAnimator : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        target = agent.transform.position;
     }
 
     private void Update()
