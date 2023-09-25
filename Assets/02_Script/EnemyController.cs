@@ -11,9 +11,12 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     CharaterCombat combat;
 
+    private Animator anim;
+
     
     void Start()
     {
+        anim = GetComponent<Animator>();
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         combat = GetComponent<CharaterCombat>();
@@ -34,12 +37,19 @@ public class EnemyController : MonoBehaviour
                 if(targetStats != null)
                 {
                     // 공격
+                    anim.SetBool("Attack", true);
+
                     combat.Attack(targetStats);
                 }
                 
                 // todo.. 타겟 마주보기
                 FaceTarget();
             }
+        }
+
+        if(distance > lookRadius)
+        {
+            anim.SetBool("Attack", false);
         }
     }
 

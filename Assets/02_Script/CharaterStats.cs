@@ -10,9 +10,11 @@ public class CharaterStats : MonoBehaviour
     public Stat damage;
     public Stat armor;
     // public Stat 
+    private Animator anim;
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         currentHP = maxHP;
     }
 
@@ -40,8 +42,11 @@ public class CharaterStats : MonoBehaviour
 
     public virtual void Die()
     {
+
         Debug.Log(gameObject.name + "»ç¸Á");
 
         // todo.. »ç¸Á ¾Ö´Ï¸ÞÀÌ¼Ç Ã³¸® ÇØ¾ßµÊ
+        anim.SetTrigger("Die");
+
     }
 }
