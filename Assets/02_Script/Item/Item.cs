@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     new public string itemName = "New Item";
     public Sprite icon = null;
     public bool isDefaultItem = false;
+    
 
     public virtual void Use()
     {

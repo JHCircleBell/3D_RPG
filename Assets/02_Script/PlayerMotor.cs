@@ -17,11 +17,14 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
+        //GetInput();
+        //Interation();
         if(target != null)
         {
             agent.SetDestination(target.position);
             FaceToTarget();
         }
+
     }
 
     public void MoveToPoint(Vector3 point)
@@ -52,4 +55,48 @@ public class PlayerMotor : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x,0f,dir.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
+
+
+
+    //private GameObject nearWeapon;
+    //[SerializeField] private GameObject[] weapons;
+    //[SerializeField] private bool[] hasWeapons;
+    //private bool isDown;
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("Weapon"))
+    //    {
+    //        nearWeapon = other.gameObject;
+    //        Debug.Log(nearWeapon.name);
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Weapon"))
+    //    {
+    //        nearWeapon = null;
+    //    }
+    //}
+
+    //private void GetInput()
+    //{
+    //    isDown = Input.GetButtonDown("Interaction");
+    //}
+
+    //private void Interation()
+    //{
+    //    if(isDown && nearWeapon != null)
+    //    {
+    //        if (nearWeapon.CompareTag("Weapon"))
+    //        {
+    //            Item item = nearWeapon.GetComponent<Item>();
+    //            int weaponIndex = item.Value;
+    //            hasWeapons[weaponIndex] = true;
+
+    //            Destroy(nearWeapon);
+    //        }
+    //    }
+    //}
 }
