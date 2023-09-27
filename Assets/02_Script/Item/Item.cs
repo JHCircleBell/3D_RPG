@@ -10,7 +10,7 @@ public class Item : ScriptableObject
     new public string itemName = "New Item";
     public Sprite icon = null;
     public bool isDefaultItem = false;
-    
+    public bool isEquiped = false; // isEquiped false인 애들만 인벤토리에서 보여지도록
 
     public virtual void Use()
     {

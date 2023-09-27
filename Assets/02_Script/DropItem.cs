@@ -5,18 +5,31 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    [SerializeField]
-    private int itemCount;
+    private Vector3 pos;
+    [SerializeField] private GameObject[] items;
 
-
-
-    private void OnTriggerEnter(Collider other)
+    private void OnDestroy()
     {
-        if(other.CompareTag("Player"))
+        pos = new Vector3(0f, 2f, 1f);
+        transform.position = gameObject.transform.position + pos;
+        StartCoroutine("dropItem");
+    }
+
+
+    
+    IEnumerator dropItem()
+    {
+        int maxItem = 10;
+        yield return new WaitForSeconds(0.3f);
+
+        for (int i = 0; i < maxItem; i++)
         {
-            itemCount++;
-            gameObject.SetActive(false);
+            int rand = Random.Range(0, 3);
+
+            yield return new WaitForSeconds(0.3f);
+            Instantiate(items[rand], transform.position, Quaternion.identity);
         }
+        Destroy(this.gameObject);
     }
 
     private void AddHP()

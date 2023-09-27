@@ -51,14 +51,14 @@ public class CharAnimator : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-               
-                doAttack();
-                agent.isStopped = true;
-                //isAttack = true;
-                // anim.SetBool("Walk", false);
-                 
+
+            doAttack();
+            agent.isStopped = true;
+            //isAttack = true;
+            // anim.SetBool("Walk", false);
+
         }
 
         if (Vector3.Distance(me, target) > 0.1f)

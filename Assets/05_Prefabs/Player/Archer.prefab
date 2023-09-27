@@ -2602,6 +2602,7 @@ GameObject:
   - component: {fileID: 66270975433814926}
   - component: {fileID: 119702920001463786}
   - component: {fileID: 99651532990217750}
+  - component: {fileID: 601825924}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -2693,6 +2694,20 @@ MonoBehaviour:
     - prefab: {fileID: 100000, guid: 7e462abb283b73a4ba97438461785130, type: 3}
     slots: 4
   disabledGraySkeleton: {fileID: 0}
+--- !u!114 &601825924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71518999243296068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ce5010a772c9d4ab799b581a952d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchDelay: 1
+  weapon: []
 --- !u!1 &71523287759537056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,11 +4637,11 @@ GameObject:
   - component: {fileID: 372558672118666797}
   m_Layer: 0
   m_Name: BowSlot
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &69027030445929244
 Transform:
   m_ObjectHideFlags: 0
@@ -5879,7 +5894,7 @@ GameObject:
   - component: {fileID: 8971098499931362882}
   m_Layer: 0
   m_Name: SwordSlot01
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5972,6 +5987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 471589463543240221}
+  - component: {fileID: 1878929887}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -5997,6 +6013,23 @@ Transform:
   m_Father: {fileID: 69130702900872238}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878929887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850146075413113605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ce5010a772c9d4ab799b581a952d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchDelay: 1
+  weapon:
+  - {fileID: 71850215396175562}
+  - {fileID: 825740518529074403}
+  - {fileID: 7042097436657986741}
 --- !u!1 &7042097436657986741
 GameObject:
   m_ObjectHideFlags: 0
@@ -6011,7 +6044,7 @@ GameObject:
   - component: {fileID: 5894949080707998980}
   m_Layer: 0
   m_Name: SwordSlot02
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

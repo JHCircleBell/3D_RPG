@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1117544837445074152}
   - component: {fileID: 1117544837445074154}
   - component: {fileID: 1117544837445074155}
+  - component: {fileID: -1696979127335399175}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -113,9 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec12ca2a0c7f2d847b0f61773dccf128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
+  maxHP: 5
   damage:
-    baseValue: 5
+    baseValue: 2
   armor:
     baseValue: 3
 --- !u!114 &1117544837445074154
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb83053e1cd17d24c9e9999c694a5493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
+  attackSpeed: 3
 --- !u!95 &1117544837445074155
 Animator:
   serializedVersion: 5
@@ -152,6 +153,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1696979127335399175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117544837445074145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9387ee8d1407ebe45bd3265c83e69763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 7022305128414776354, guid: 0acf69085831fd94789ee0f76fb3379f, type: 3}
+  - {fileID: 4519117621355429491, guid: fe5fae2615536a94883aaf26de72a355, type: 3}
+  - {fileID: 3726180731873073101, guid: 467a68eca506acb4282fd0a3a13664e1, type: 3}
 --- !u!1001 &1117544837887407285
 PrefabInstance:
   m_ObjectHideFlags: 0
