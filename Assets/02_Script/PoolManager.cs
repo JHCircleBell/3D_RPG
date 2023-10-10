@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    // 프리펩들을 보관할 변수
+   
     [SerializeField] private GameObject[] prefabs;
 
-    // 풀 담당을 하는 리스트
+   
     List<GameObject>[] pools;
 
     private void Awake()
@@ -45,5 +45,9 @@ public class PoolManager : MonoBehaviour
         }
 
         return select;
+    }
+    public void Clear()
+    {
+
     }
 }
