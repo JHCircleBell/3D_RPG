@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Chest
   icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
   isDefaultItem: 0
+  isEquiped: 0
   equipSlot: 1
   armorModifier: 3
   damageModifier: 5

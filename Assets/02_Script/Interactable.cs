@@ -33,7 +33,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        Debug.Log("상호작용 대상 " + transform.name);
+        // Debug.Log("상호작용 대상 " + transform.name);
     }
 
 

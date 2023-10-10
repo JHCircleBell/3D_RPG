@@ -10,9 +10,11 @@ public class CharaterStats : MonoBehaviour
     public Stat damage;
     public Stat armor;
     // public Stat 
+    private Animator anim;
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         currentHP = maxHP;
     }
 
@@ -30,7 +32,7 @@ public class CharaterStats : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHP -= damage;
-        Debug.Log("캐릭터가 " + damage + "만큼의 데미지를 입었습니다.");
+        Debug.Log(gameObject.name + "가 " + damage + "만큼의 데미지를 입었습니다.");
 
         if(currentHP <= 0)
         {
@@ -40,6 +42,11 @@ public class CharaterStats : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("캐릭터 사망");
+
+        Debug.Log(gameObject.name + "사망");
+
+        // todo.. 사망 애니메이션 처리 해야됨
+        anim.SetTrigger("Die");
+
     }
 }

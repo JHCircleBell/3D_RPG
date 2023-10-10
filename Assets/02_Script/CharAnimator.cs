@@ -20,13 +20,16 @@ public class CharAnimator : MonoBehaviour
 
     private Vector3 target;
     private Vector3 me;
-    //private Vector3 
+
+    private bool isAttack = false;
 
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        target = agent.transform.position;
     }
 
     private void Update()
@@ -37,12 +40,25 @@ public class CharAnimator : MonoBehaviour
         target.y = 0f;
         if (Input.GetMouseButtonDown(1))
         {
+            agent.isStopped = false;
+            // isAttack = false;
+            // anim.SetBool("Walk", true);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit))
             {
                 target = raycastHit.point;
                 agent.transform.LookAt(target);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            doAttack();
+            agent.isStopped = true;
+            //isAttack = true;
+            // anim.SetBool("Walk", false);
+
         }
 
         if (Vector3.Distance(me, target) > 0.1f)
@@ -62,6 +78,13 @@ public class CharAnimator : MonoBehaviour
             // anim.speed = 0.1f;
             anim.SetBool("Walk", false);
         }
+        
 
+    }
+
+    private void doAttack()
+    {
+        anim.SetTrigger("Attack");
+        
     }
 }
